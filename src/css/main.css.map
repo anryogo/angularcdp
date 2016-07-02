@@ -1,0 +1,11 @@
+{
+	"version": 3,
+	"file": "main.css",
+	"sources": [
+		"../scss/main.scss",
+		"../scss/_base.scss",
+		"../scss/_layouts.scss"
+	],
+	"mappings": "ACAA,AAAA,IAAI,CACJ,AAAA,IAAI,AAAC,CACH,MAAM,CAAE,IAAK,CACd,AAED,AAAA,IAAI,AAAC,CACH,OAAO,CAAE,MAAO,CACjB,ACPD,AAAA,UAAU,AAAC,CACT,MAAM,CAAE,IAAK,CACd,AAED,AACE,SADO,CACP,KAAK,AAAC,CACJ,KAAK,CAAE,IAAK,CACb",
+	"names": []
+}
