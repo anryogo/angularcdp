@@ -1,2 +1,9 @@
 @import 'base';
 @import 'layouts';
+
+// components
+@import '../components/courses/courses';
+@import '../components/course_profile/course_profile';
+
+// overide some Bootstrap styles
+@import 'overide';

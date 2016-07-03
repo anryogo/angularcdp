@@ -19,11 +19,44 @@
         </ul>
         <p class="navbar-text">Course #1</p>
         <div class="navbar-right">
-          <p class="navbar-text">Test User</p>
-          <button type="button" class="btn btn-default navbar-btn">Log Out</button>
+          <p class="navbar-text">
+            <span class="glyphicon glyphicon-user"></span> Test User
+          </p>
+          <button type="button" class="btn btn-default navbar-btn">
+            <span class="glyphicon glyphicon-log-out"></span> Log Out
+          </button>
         </div>
       </div>
     </nav>
+
+    <section class="row col-md-7 col-md-offset-3">
+      <div class="alert alert-danger">
+        <span class="glyphicon glyphicon-exclamation-sign"></span> Invalid login or password
+      </div>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputLogin" class="col-md-2 control-label">Login</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" id="inputLogin" placeholder="Login">
+          </div>
+          <p class="text-danger">* required</p>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="col-md-2 control-label">Password</label>
+          <div class="col-md-8">
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+          </div>
+          <p class="text-danger">* required</p>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">
+              <span class="glyphicon glyphicon-log-in"></span> Sign in
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
 
     <footer class="l-footer navbar navbar-default navbar-fixed-bottom">
       <div class="container">

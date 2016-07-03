@@ -19,11 +19,61 @@
         </ul>
         <p class="navbar-text">Course #1</p>
         <div class="navbar-right">
-          <p class="navbar-text">Test User</p>
-          <button type="button" class="btn btn-default navbar-btn">Log Out</button>
+          <p class="navbar-text">
+            <span class="glyphicon glyphicon-user"></span> Test User
+          </p>
+          <button type="button" class="btn btn-default navbar-btn">
+            <span class="glyphicon glyphicon-log-out"></span> Log Out
+          </button>
         </div>
       </div>
     </nav>
+
+    <section class="row">
+      <form class="form-horizontal col-md-10">
+        <div class="form-group">
+          <div class="col-md-8">
+            <input type="search" class="form-control" placeholder="Name or date of the fragment">
+          </div>
+          <button type="submit" class="btn btn-info">
+            <span class="glyphicon glyphicon-search"></span> Search
+          </button>
+        </div>
+      </form>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-primary pull-right">
+          <span class="glyphicon glyphicon-plus"></span> Add course
+        </button>
+      </div>
+    </section>
+
+    <section class="l-content courses">
+      <article class="course well">
+        <div class="row">
+          <div class="col-md-10">
+            <header class="row">
+              <h3 class="course-title col-md-10">Course #1 <small>1h 28m</small></h3>
+              <div class="col-md-2">
+                <time class="course-time pull-right"><strong>03/07/2016</strong></time>
+              </div>
+            </header>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Ad atque cum debitis deserunt dolor dolorem doloribus eos, est,
+              eveniet fuga id ipsa labore nemo, nihil nisi nobis officiis qui quisquam.
+            </p>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-warning btn-block">
+              <span class="glyphicon glyphicon-pencil"></span> Edit
+            </button>
+            <button type="button" class="btn btn-danger btn-block">
+              <span class="glyphicon glyphicon-remove"></span> Remove
+            </button>
+          </div>
+        </div>
+      </article>
+    </section>
 
     <footer class="l-footer navbar navbar-default navbar-fixed-bottom">
       <div class="container">
