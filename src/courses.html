@@ -85,9 +85,7 @@
 
   <script type="text/ng-template" id="deleteModalContent.html">
     <div class="modal-header">
-      <button type="button" class="close" ng-click="cancel()">
-        <span>&times;</span>
-      </button>
+      <button type="button" class="close" ng-click="cancel()"><span>×</span></button>
       <h4 class="modal-title">Delete course</h4>
     </div>
     <div class="modal-body">
@@ -99,11 +97,12 @@
     </div>
   </script>
 
+  <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
   <script src="../node_modules/angular/angular.min.js"></script>
   <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
   <script src="js/app.js"></script>
   <script src="components/courses/courses_controller.js"></script>
-  <script src="components/courses/modal_controller.js"></script>
+  <script src="components/courses/delete_course_controller.js"></script>
   <script src="components/courses/durations_filter.js"></script>
 </body>
 </html>

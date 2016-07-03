@@ -1,7 +1,7 @@
 'use strict';
 
 AngularCDP.controller("CoursesController", function($scope, $uibModal) {
-  $scope.sortOrder = '-date';
+  $scope.sortOrder = '-createdDate';
   $scope.courses = [
     {
       title: 'Course #1',
@@ -50,11 +50,7 @@ AngularCDP.controller("CoursesController", function($scope, $uibModal) {
   ];
 
   $scope.addCourse = function() {
-    $uibModal.open({
-      templateUrl: 'deleteModalContent.html',
-      controller: 'ModalInstanceController',
-      size: 'sm'
-    });
+
   };
 
   $scope.editCourse = function(course) {
@@ -62,6 +58,10 @@ AngularCDP.controller("CoursesController", function($scope, $uibModal) {
   };
 
   $scope.removeCourse = function(course) {
-
+    $uibModal.open({
+      templateUrl: 'deleteModalContent.html',
+      controller: 'DeleteCourseController',
+      size: 'sm'
+    });
   };
 });

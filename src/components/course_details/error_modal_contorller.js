@@ -1,6 +1,8 @@
 'use strict';
 
-AngularCDP.controller("ModalInstanceController", function($scope, $uibModalInstance) {
+AngularCDP.controller("ErrorModalController", function($scope, $uibModalInstance, errorMessage) {
+  $scope.error = errorMessage;
+
   $scope.ok = function() {
     $uibModalInstance.close();
   };

@@ -6,6 +6,12 @@
   margin-right: 3px;
 }
 
-.modal-body {
-  text-align: center;
+.modal-content {
+  .modal-body {
+    text-align: center;
+  }
+
+  .alert {
+    margin-bottom: 0;
+  }
 }
