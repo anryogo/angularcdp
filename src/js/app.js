@@ -1,3 +1,3 @@
 'use strict';
 
-var AngularCDP = angular.module("AngularCDP", []);
+var AngularCDP = angular.module("AngularCDP", ['ui.bootstrap']);
