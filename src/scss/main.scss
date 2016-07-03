@@ -1,9 +1,10 @@
 @import 'base';
+@import 'common';
 @import 'layouts';
 
 // components
-@import '../components/courses/courses';
-@import '../components/course_profile/course_profile';
+@import '../components/courses/main';
+@import '../components/course_details/main';
 
 // overide some Bootstrap styles
-@import 'overide';
+@import 'vendor';
