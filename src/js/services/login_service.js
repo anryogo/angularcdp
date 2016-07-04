@@ -3,24 +3,27 @@
 AngularCDP.factory("LoginService", function($httpBackend, $http, localStorageService) {
   var TEST_USER = {
     login: 'test',
-    password: 'test'
+    password: 'test',
+    username: 'Test User'
   };
 
   return {
-    login: function(user, onError) {
-      $httpBackend.whenPOST('/login', TEST_USER).respond(TEST_USER);
+    login: function(user, onSuccess, onError) {
+      $httpBackend.whenPOST('/login', {login: 'test', password: 'test'}).respond(TEST_USER);
       $http.post('/login', user)
         .then(function(response) {
           localStorageService.set('user', JSON.stringify(response.data));
+          onSuccess(response.data);
         })
         .catch(onError);
     },
 
-    logout: function() {
+    logout: function(onSuccess) {
       $httpBackend.whenGET('/logout').respond(null);
       $http.get('/logout')
         .then(function() {
           localStorageService.remove('user');
+          onSuccess();
         })
         .catch(function() {
           console.log('Server error');

@@ -30,8 +30,24 @@ AngularCDP.config(function($routeProvider) {
   });
 });
 
-AngularCDP.run(function($httpBackend) {
+AngularCDP.run(function($httpBackend, $rootScope, $route, $location, LoginService) {
   $httpBackend.whenGET('components/login/login.html').passThrough();
   $httpBackend.whenGET('components/courses/courses.html').passThrough();
   $httpBackend.whenGET('components/course_details/course_details.html').passThrough();
+
+  $rootScope.$on('$locationChangeStart', checkAuth);
+
+  function checkAuth() {
+    var currentUser = LoginService.getLogin(),
+        path = $location.path().replace(/\d+/g, ":id"),
+        isAvailableRoute = $route.routes[path] && path !== '/login';
+
+    $rootScope.currentCourseTitle = null;
+
+    if (_.isEmpty(currentUser)) {
+      $location.url('/login');
+    } else if (!isAvailableRoute) {
+      $location.url('/courses');
+    }
+  }
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-AngularCDP.controller("CourseDetailsController", function($scope, $uibModal) {
+AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $routeParams, $uibModal, CoursesService) {
   $scope.allAuthors = [
     'Ivanov',
     'Petrov',
@@ -9,6 +9,17 @@ AngularCDP.controller("CourseDetailsController", function($scope, $uibModal) {
   ];
   $scope.course = {};
   $scope.course.authors = [];
+
+  if ($routeParams.id) {
+    CoursesService.get($routeParams.id)
+      .$promise
+      .then(function(response) {
+        $scope.course = response;
+        console.log(response);
+      });
+  }
+
+  $rootScope.currentCourseTitle = $scope.course.title;
 
   $scope.addAuthors = function(authors) {
     $scope.course.authors = $scope.course.authors.concat(authors);
