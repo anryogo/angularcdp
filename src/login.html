@@ -33,7 +33,7 @@
       <div class="alert alert-danger" ng-class="{isHidden: !error}">
         <span class="glyphicon glyphicon-exclamation-sign"></span> {{error}}
       </div>
-      <form name="loginForm" class="form-horizontal" ng-submit="login(user, loginForm)">
+      <form name="loginForm" class="form-horizontal" ng-submit="login(user)">
         <div class="form-group">
           <label for="inputLogin" class="col-md-2 control-label">Login</label>
           <div class="col-md-8" ng-class="{'has-error': isLoginInvalid || isLoginRequired}">
@@ -78,7 +78,11 @@
   <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
   <script src="../node_modules/angular/angular.min.js"></script>
   <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <script src="../node_modules/angular-resource/angular-resource.min.js"></script>
+  <script src="../node_modules/angular-mocks/angular-mocks.js"></script>
+  <script src="../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/services/login_service.js"></script>
   <script src="components/login/login_controller.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 'use strict';
 
-AngularCDP.controller("LoginController", function($scope) {
+AngularCDP.controller("LoginController", function($scope, LoginService) {
   $scope.loginRegex = '[A-Za-z]+';
   $scope.passRegex = '[A-Za-z0-9]+';
   $scope.error = null;
@@ -21,14 +21,12 @@ AngularCDP.controller("LoginController", function($scope) {
     }
   };
 
-  $scope.login = function(user, loginForm) {
-    if (loginForm.$invalid) {
+  $scope.login = function(user) {
+    LoginService.login(user, function() {
       $scope.error = "Wrong login or password";
       $scope.user.password = '';
       $scope.isPasswordRequired = true;
-    } else {
-      console.log('You are logged');
-    }
+    });
   };
 
   function validateClass(className) {
