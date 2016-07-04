@@ -13,10 +13,20 @@ AngularCDP.controller("CoursesController", function($scope, $location, $uibModal
   };
 
   $scope.removeCourse = function(course) {
-    $uibModal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'deleteModalContent.html',
       controller: 'DeleteCourseController',
       size: 'sm'
+    });
+
+    modalInstance.result.then(function() {
+      CoursesService.delete(course.id)
+        .$promise
+        .then(function(response) {
+          $scope.courses = response;
+        });
+    }, function () {
+      // console.log('Modal dismissed');
     });
   };
 });

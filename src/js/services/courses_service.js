@@ -5,7 +5,7 @@ AngularCDP.factory("CoursesService", function($httpBackend, $resource) {
     {
       id: 1,
       title: 'Course #1',
-      createdDate: Date.now(),
+      createdDate: new Date(Date.now()),
       duration: 32442,
       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad atque cum debitis deserunt dolor dolorem doloribus eos, est, eveniet fuga id ipsa labore nemo, nihil nisi nobis officiis qui quisquam.',
       authors: [
@@ -17,7 +17,7 @@ AngularCDP.factory("CoursesService", function($httpBackend, $resource) {
     {
       id: 2,
       title: 'New favorite #2',
-      createdDate: Date.now() + 1,
+      createdDate: new Date(Date.now() + 1),
       duration: 123,
       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad atque cum debitis deserunt dolor dolorem doloribus eos, est, eveniet fuga id ipsa labore nemo, nihil nisi nobis officiis qui quisquam.',
       authors: [
@@ -29,7 +29,7 @@ AngularCDP.factory("CoursesService", function($httpBackend, $resource) {
     {
       id: 3,
       title: 'TESTTEST #3',
-      createdDate: Date.now() + 2,
+      createdDate: new Date(Date.now() + 2),
       duration: 333,
       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad atque cum debitis deserunt dolor dolorem doloribus eos, est, eveniet fuga id ipsa labore nemo, nihil nisi nobis officiis qui quisquam.',
       authors: [
@@ -40,8 +40,8 @@ AngularCDP.factory("CoursesService", function($httpBackend, $resource) {
     },
     {
       id: 4,
-      title: 'The best #4',
-      createdDate: Date.now() + 3,
+      title: 'The best test #4',
+      createdDate: new Date(Date.now() + 3),
       duration: 23,
       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad atque cum debitis deserunt dolor dolorem doloribus eos, est, eveniet fuga id ipsa labore nemo, nihil nisi nobis officiis qui quisquam.',
       authors: [
@@ -54,7 +54,8 @@ AngularCDP.factory("CoursesService", function($httpBackend, $resource) {
 
   var resource = $resource('/courses/:id', {id: '@id'}, {
     getAll: {method: 'GET', isArray: true},
-    update: {method: 'PUT'}
+    update: {method: 'PUT'},
+    remove: {method: 'DELETE', isArray: true}
   });
 
   var counter = 5;
@@ -62,7 +63,7 @@ AngularCDP.factory("CoursesService", function($httpBackend, $resource) {
   return {
     get: function(id) {
       $httpBackend.whenGET('/courses').respond(courses);
-      $httpBackend.whenGET('/courses/' + id).respond(_.find(courses, {id: id}));
+      $httpBackend.whenGET('/courses/' + id).respond(_.find(courses, {id: +id}));
       return id ? resource.get({id: id}) : resource.getAll();
     },
 
@@ -84,12 +85,11 @@ AngularCDP.factory("CoursesService", function($httpBackend, $resource) {
     },
 
     delete: function(id) {
-      $httpBackend.whenDELETE('/courses/' + id).respond(function() {
-        courses = _.reject(courses, function(course) {
-          return course.id === id;
-        });
-        return {};
+      courses = _.reject(courses, function(course) {
+        return course.id === +id;
       });
+
+      $httpBackend.whenDELETE('/courses/' + id).respond(courses);
       return resource.remove({id: id});
     }
   };

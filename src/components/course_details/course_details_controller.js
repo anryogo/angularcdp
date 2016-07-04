@@ -1,6 +1,6 @@
 'use strict';
 
-AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $routeParams, $uibModal, CoursesService) {
+AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $routeParams, $location, $uibModal, CoursesService) {
   $scope.allAuthors = [
     'Ivanov',
     'Petrov',
@@ -15,11 +15,16 @@ AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $r
       .$promise
       .then(function(response) {
         $scope.course = response;
-        console.log(response);
       });
   }
 
-  $rootScope.currentCourseTitle = $scope.course.title;
+  $scope.$watch('course.title', function(value) {
+    $rootScope.currentCourseTitle = value;
+  });
+
+  $scope.filterAuthors = function(item) {
+    return !_.includes($scope.course.authors, item);
+  };
 
   $scope.addAuthors = function(authors) {
     $scope.course.authors = $scope.course.authors.concat(authors);
@@ -31,7 +36,7 @@ AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $r
     $scope.allAuthors = $scope.allAuthors.concat(authors);
   };
 
-  $scope.submit = function(course, courseDetailsForm) {
+  $scope.submit = function(courseDetailsForm) {
     if (courseDetailsForm.$invalid) {
       $uibModal.open({
         templateUrl: 'errorContent.html',
@@ -43,7 +48,11 @@ AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $r
         }
       });
     } else {
-      console.log('Your course is added or updated');
+      // console.log('Your course is added or updated');
     }
   };
+
+  $scope.returnBack = function() {
+    $location.url('/courses');
+  }
 });
