@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Angular CDP</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body ng-app="AngularCDP">
+  <div class="l-wrapper container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Angular CDP</a>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#/courses">Courses</a></li>
+        </ul>
+        <p class="navbar-text">Course #1</p>
+        <div class="navbar-right">
+          <p class="navbar-text">
+            <span class="glyphicon glyphicon-user"></span> Test User
+          </p>
+          <button type="button" class="btn btn-default navbar-btn">
+            <span class="glyphicon glyphicon-log-out"></span> Log Out
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <ng-view></ng-view>
+
+    <footer class="l-footer navbar navbar-default navbar-fixed-bottom">
+      <div class="container">
+        <p class="navbar-text text-center copy"><small>@ EPAM System 2016</small></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
+  <script src="lib/angular.min.js"></script>
+  <script src="lib/ui-bootstrap-tpls.js"></script>
+  <script src="lib/angular-route.min.js"></script>
+  <script src="lib/angular-resource.min.js"></script>
+  <script src="lib/angular-mocks.js"></script>
+  <script src="lib/angular-local-storage.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services/login_service.js"></script>
+  <script src="js/services/courses_service.js"></script>
+  <script src="components/login/login_controller.js"></script>
+  <script src="components/courses/courses_controller.js"></script>
+  <script src="components/courses/delete_course_controller.js"></script>
+  <script src="components/courses/durations_filter.js"></script>
+  <script src="components/course_details/course_details_controller.js"></script>
+  <script src="components/course_details/error_modal_contorller.js"></script>
+</body>
+</html>

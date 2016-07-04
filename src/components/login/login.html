@@ -1,0 +1,38 @@
+<section class="row col-md-7 col-md-offset-3">
+  <div class="alert alert-danger" ng-class="{isHidden: !error}">
+    <span class="glyphicon glyphicon-exclamation-sign"></span> {{error}}
+  </div>
+  <form name="loginForm" class="form-horizontal" ng-submit="login(user)">
+    <div class="form-group">
+      <label for="inputLogin" class="col-md-2 control-label">Login</label>
+      <div class="col-md-8" ng-class="{'has-error': isLoginInvalid || isLoginRequired}">
+        <input required
+               ng-blur="validate($event)"
+               ng-keyup="validate($event)"
+               ng-model="user.login"
+               ng-pattern="loginRegex"
+               type="text" class="form-control" id="inputLogin" placeholder="Login">
+      </div>
+      <p class="text-danger" ng-show="isLoginRequired">* required</p>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-md-2 control-label">Password</label>
+      <div class="col-md-8" ng-class="{'has-error': isPasswordInvalid || isPasswordRequired}">
+        <input required
+               ng-blur="validate($event)"
+               ng-keyup="validate($event)"
+               ng-model="user.password"
+               ng-pattern="passRegex"
+               type="password" class="form-control" id="inputPassword" placeholder="Password">
+      </div>
+      <p class="text-danger" ng-show="isPasswordRequired">* required</p>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">
+          <span class="glyphicon glyphicon-log-in"></span> Sign in
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

@@ -23,8 +23,17 @@ module.exports = function(grunt) {
         files: ['src/**/*.scss'],
         tasks: ['sass']
       }
+    },
+
+    connect: {
+      server: {
+        options: {
+          base: 'src',
+          open: true
+        }
+      }
     }
   });
 
-  grunt.registerTask('default', ['sass', 'watch']);
+  grunt.registerTask('default', ['sass', 'connect', 'watch']);
 };
