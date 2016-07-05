@@ -15,16 +15,13 @@ AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $r
       .$promise
       .then(function(response) {
         $scope.course = response;
+        $scope.allAuthors = _.difference($scope.allAuthors, $scope.course.authors);
       });
   }
 
   $scope.$watch('course.title', function(value) {
     $rootScope.currentCourseTitle = value;
   });
-
-  $scope.filterAuthors = function(item) {
-    return !_.includes($scope.course.authors, item);
-  };
 
   $scope.addAuthors = function(authors) {
     $scope.course.authors = $scope.course.authors.concat(authors);
@@ -48,11 +45,18 @@ AngularCDP.controller("CourseDetailsController", function($rootScope, $scope, $r
         }
       });
     } else {
-      // console.log('Your course is added or updated');
+      createOrUpdateCourse();
     }
   };
 
   $scope.returnBack = function() {
     $location.url('/courses');
+  };
+
+  function createOrUpdateCourse() {
+    var method = $scope.course.id ? 'save' : 'create';
+    CoursesService[method]($scope.course)
+      .$promise
+      .then($scope.returnBack);
   }
 });

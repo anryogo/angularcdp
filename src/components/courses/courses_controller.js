@@ -2,7 +2,11 @@
 
 AngularCDP.controller("CoursesController", function($scope, $location, $uibModal, CoursesService) {
   $scope.sortOrder = '-createdDate';
-  $scope.courses = CoursesService.get();
+  CoursesService.get()
+    .$promise
+    .then(function(response) {
+      $scope.courses = response;
+    });
 
   $scope.addCourse = function() {
     $location.url('/courses/new');
