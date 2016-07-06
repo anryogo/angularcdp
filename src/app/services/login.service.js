@@ -1,44 +1,47 @@
 define([
+  'lodash',
   'angular'
-], function(angular) {
+], function(_, angular) {
   'use strict';
 
   angular
     .module('App')
-    .factory("LoginService", function($httpBackend, $http, localStorageService) {
-    var TEST_USER = {
-      login: 'test',
-      password: 'test',
-      username: 'Test User'
+    .factory("loginService", loginService);
+
+  loginService.$inject = ['TEST_USER', '$httpBackend', '$http', 'localStorageService'];
+
+  function loginService(TEST_USER, $httpBackend, $http, localStorageService) {
+    var service = {
+      login: login,
+      logout: logout,
+      getLogin: getLogin
     };
 
-    return {
-      login: function(user, onSuccess, onError) {
-        $httpBackend.whenPOST('/login', {login: 'test', password: 'test'}).respond(TEST_USER);
-        $http.post('/login', user)
-          .then(function(response) {
-            localStorageService.set('user', JSON.stringify(response.data));
-            onSuccess(response.data);
-          })
-          .catch(onError);
-      },
+    return service;
 
-      logout: function(onSuccess) {
-        $httpBackend.whenGET('/logout').respond(null);
-        $http.get('/logout')
-          .then(function() {
-            localStorageService.remove('user');
-            onSuccess();
-          })
-          .catch(function() {
-            console.log('Server error');
-          });
-      },
+    function login(user) {
+      $httpBackend.whenPOST('/login', _.omit(TEST_USER, 'username')).respond(TEST_USER);
+      return $http.post('/login', user).then(onLoginSuccess);
+    }
 
-      getLogin: function() {
-        return localStorageService.get('user') ? JSON.parse(localStorageService.get('user')) : {};
-      }
-    };
-  });
-  
+    function onLoginSuccess(response) {
+      localStorageService.set('account', JSON.stringify(response.data));
+      return response.data;
+    }
+
+    function logout() {
+      $httpBackend.whenGET('/logout').respond(null);
+      return $http.get('/logout').then(onLogoutSuccess);
+    }
+
+    function onLogoutSuccess() {
+      localStorageService.remove('account');
+    }
+
+    function getLogin() {
+      return localStorageService.get('account') ? JSON.parse(localStorageService.get('account')) : {};
+    }
+
+  }
+
 });

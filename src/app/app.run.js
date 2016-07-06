@@ -1,30 +1,32 @@
 define([
+  'lodash',
   'angular',
-  'app'
-], function(angular) {
+  'app',
+  'app.config'
+], function(_, angular) {
   'use strict';
 
   angular
     .module('App')
     .run(run);
 
-  run.$inject = ['$httpBackend', '$rootScope', '$route', '$location', 'LoginService'];
+  run.$inject = ['TEMPLATES', '$httpBackend', '$rootScope', '$route', '$location', 'loginService'];
 
-  function run($httpBackend, $rootScope, $route, $location, LoginService) {
-    $httpBackend.whenGET('app/login/login.html').passThrough();
-    $httpBackend.whenGET('app/courses/courses.html').passThrough();
-    $httpBackend.whenGET('app/course-details/course_details.html').passThrough();
+  function run(TEMPLATES, $httpBackend, $rootScope, $route, $location, loginService) {
+    // routes mocks
+    $httpBackend.whenGET(TEMPLATES.login).passThrough();
+    $httpBackend.whenGET(TEMPLATES.courses).passThrough();
+    $httpBackend.whenGET(TEMPLATES.details).passThrough();
 
+    // bind listeners on events
     $rootScope.$on('$locationChangeStart', checkAuth);
 
     function checkAuth() {
-      var currentUser = LoginService.getLogin(),
-        path = $location.path().replace(/\d+/g, ":id"),
-        isAvailableRoute = $route.routes[path] && path !== '/login';
+      var isNotLogged = _.isEmpty(loginService.getLogin()),
+          route = $location.path().replace(/\d+/g, ':id'),
+          isAvailableRoute = $route.routes[route] && route !== '/login';
 
-      $rootScope.currentCourseTitle = null;
-
-      if (_.isEmpty(currentUser)) {
+      if (isNotLogged) {
         $location.url('/login');
       } else if (!isAvailableRoute) {
         $location.url('/courses');

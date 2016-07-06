@@ -1,6 +1,7 @@
 define([
   'angular',
-  'app'
+  'app',
+  'app.config'
 ], function(angular) {
   'use strict';
 
@@ -8,27 +9,27 @@ define([
     .module('App')
     .config(config);
 
-  config.$inject = ['$routeProvider'];
+  config.$inject = ['TEMPLATES', '$routeProvider'];
 
-  function config($routeProvider) {
+  function config(TEMPLATES, $routeProvider) {
     $routeProvider.when('/login', {
-      templateUrl: 'app/login/login.html',
+      templateUrl: TEMPLATES.login,
       controller: 'LoginController'
     });
     $routeProvider.when('/courses', {
-      templateUrl: 'app/courses/courses.html',
+      templateUrl: TEMPLATES.courses,
       controller: 'CoursesController'
     });
     $routeProvider.when('/courses/new', {
-      templateUrl: 'app/course-details/course_details.html',
+      templateUrl: TEMPLATES.details,
       controller: 'CourseDetailsController'
     });
     $routeProvider.when('/courses/:id', {
-      templateUrl: 'app/course-details/course_details.html',
+      templateUrl: TEMPLATES.details,
       controller: 'CourseDetailsController'
     });
     $routeProvider.otherwise({
-      redirectTo: '/login'
+      redirectTo: '/courses'
     });
   }
 

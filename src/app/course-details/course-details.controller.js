@@ -7,9 +7,9 @@ define([
     .module('CourseDetails')
     .controller("CourseDetailsController", CourseDetailsController);
 
-  CourseDetailsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', '$uibModal', 'CoursesService'];
+  CourseDetailsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', '$uibModal', 'coursesService'];
 
-  function CourseDetailsController($rootScope, $scope, $routeParams, $location, $uibModal, CoursesService) {
+  function CourseDetailsController($rootScope, $scope, $routeParams, $location, $uibModal, coursesService) {
     $scope.allAuthors = [
       'Ivanov',
       'Petrov',
@@ -20,8 +20,7 @@ define([
     $scope.course.authors = [];
 
     if ($routeParams.id) {
-      CoursesService.get($routeParams.id)
-        .$promise
+      coursesService.get($routeParams.id)
         .then(function(response) {
           $scope.course = response;
           $scope.allAuthors = _.difference($scope.allAuthors, $scope.course.authors);
@@ -29,7 +28,7 @@ define([
     }
 
     $scope.$watch('course.title', function(value) {
-      $rootScope.currentCourseTitle = value;
+      $rootScope.breadcrumbTitle = value;
     });
 
     $scope.addAuthors = function(authors) {
@@ -64,8 +63,7 @@ define([
 
     function createOrUpdateCourse() {
       var method = $scope.course.id ? 'save' : 'create';
-      CoursesService[method]($scope.course)
-        .$promise
+      coursesService[method]($scope.course)
         .then($scope.returnBack);
     }
   }

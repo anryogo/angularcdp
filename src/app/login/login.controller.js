@@ -7,9 +7,9 @@ define([
     .module('Login')
     .controller("LoginController", LoginController);
 
-  LoginController.$inject = ['$rootScope', '$scope', '$location', 'LoginService'];
+  LoginController.$inject = ['$rootScope', '$scope', '$location', 'loginService'];
 
-  function LoginController($rootScope, $scope, $location, LoginService) {
+  function LoginController($rootScope, $scope, $location, loginService) {
     $scope.loginRegex = '[A-Za-z]+';
     $scope.passRegex = '[A-Za-z0-9]+';
     $scope.error = null;
@@ -31,16 +31,16 @@ define([
     };
 
     $scope.login = function(user) {
-      LoginService.login(user,
-        function(data) {
+      loginService.login(user)
+        .then(function(data) {
           $rootScope.currentUser = data;
           $location.url('/courses');
-        }, function() {
+        })
+        .catch(function() {
           $scope.error = "Wrong login or password";
           $scope.user.password = '';
           $scope.isPasswordRequired = true;
-        }
-      );
+        });
     };
 
     function validateClass(className) {
@@ -48,5 +48,5 @@ define([
         className.indexOf('ng-invalid-pattern') >= 0;
     }
   }
-  
+
 });

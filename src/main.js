@@ -11,9 +11,7 @@ requirejs.config({
     'angular-local-storage': '../bower_components/angular-local-storage/dist/angular-local-storage.min',
 
     // application entry point
-    'app': 'app.module',
-    'appRoute': 'app.route',
-    'appRun': 'app.run'
+    'app': 'app.module'
   },
 
   shim: {

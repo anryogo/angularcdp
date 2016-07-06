@@ -7,12 +7,11 @@ define([
     .module('Courses')
     .controller("CoursesController", CoursesController);
 
-  CoursesController.$inject = ['$scope', '$location', '$uibModal', 'CoursesService'];
+  CoursesController.$inject = ['$scope', '$location', '$uibModal', 'coursesService'];
 
-  function CoursesController($scope, $location, $uibModal, CoursesService) {
+  function CoursesController($scope, $location, $uibModal, coursesService) {
     $scope.sortOrder = '-createdDate';
-    CoursesService.get()
-      .$promise
+    coursesService.get()
       .then(function(response) {
         $scope.courses = response;
       });
@@ -33,8 +32,7 @@ define([
       });
 
       modalInstance.result.then(function() {
-        CoursesService.delete(course.id)
-          .$promise
+        coursesService.delete(course.id)
           .then(function(response) {
             $scope.courses = response;
           });
@@ -43,5 +41,5 @@ define([
       });
     };
   }
-  
+
 });
