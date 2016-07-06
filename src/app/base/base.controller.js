@@ -1,33 +1,44 @@
 define([
+  'lodash',
   'angular'
-], function(angular) {
+], function(_, angular) {
   'use strict';
 
   angular
     .module('Base')
     .controller("BaseController", BaseController);
 
-  BaseController.$inject = ['$rootScope', '$scope', '$location', 'loginService'];
+  BaseController.$inject = ['$rootScope', '$location', 'loginService'];
 
-  function BaseController($rootScope, $scope, $location, loginService) {
-    $rootScope.currentUser = loginService.getLogin();
+  function BaseController($rootScope, $location, loginService) {
+    var vm = this;
+    vm.logout = logout;
 
     // bind listeners on events
+    $rootScope.$watch('account', onAccountChange);
     $rootScope.$on('$locationChangeStart', clearBreadcrumbs);
 
-    $rootScope.$watch('currentUser', function(value) {
-      $scope.isLogged = !_.isEmpty(value);
-    });
+    init();
 
-    $scope.logout = function() {
-      loginService.logout().then(function() {
-        $rootScope.currentUser = {};
-        $location.url('/login');
-      });
-    };
+    function logout() {
+      loginService.logout().then(onLogoutSuccess);
+    }
+
+    function onLogoutSuccess() {
+      $rootScope.account = {};
+      $location.url('/login');
+    }
+
+    function onAccountChange(value) {
+      vm.isLogged = !_.isEmpty(value);
+    }
 
     function clearBreadcrumbs() {
       $rootScope.breadcrumbTitle = null;
+    }
+
+    function init() {
+      $rootScope.account = loginService.getLogin();
     }
   }
 

@@ -11,19 +11,19 @@
 </head>
 <body>
 
-  <div ng-controller="BaseController" class="l-wrapper container">
+  <div ng-controller="BaseController as base" class="l-wrapper container">
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <a class="navbar-brand" href="/">Angular CDP</a>
-        <ul class="nav navbar-nav" ng-show="isLogged">
+        <ul class="nav navbar-nav" ng-show="base.isLogged">
           <li class="active"><a href="#/courses">Courses</a></li>
         </ul>
         <p class="navbar-text" ng-show="!!breadcrumbTitle">{{breadcrumbTitle}}</p>
-        <div class="navbar-right" ng-show="isLogged">
+        <div class="navbar-right" ng-show="base.isLogged">
           <p class="navbar-text">
-            <span class="glyphicon glyphicon-user"></span> {{currentUser.username}}
+            <span class="glyphicon glyphicon-user"></span> {{account.username}}
           </p>
-          <button type="button" class="btn btn-default navbar-btn" ng-click="logout()">
+          <button type="button" class="btn btn-default navbar-btn" ng-click="base.logout()">
             <span class="glyphicon glyphicon-log-out"></span> Log Out
           </button>
         </div>

@@ -33,7 +33,7 @@ define([
     $scope.login = function(user) {
       loginService.login(user)
         .then(function(data) {
-          $rootScope.currentUser = data;
+          $rootScope.account = data;
           $location.url('/courses');
         })
         .catch(function() {
