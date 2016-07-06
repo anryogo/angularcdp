@@ -7,12 +7,12 @@ define([
     .module('Login')
     .controller("LoginController", LoginController);
 
-  LoginController.$inject = ['PATTERNS', 'ERRORS', '$rootScope', '$location', 'loginService'];
+  LoginController.$inject = ['appConfig', '$rootScope', '$location', 'loginService'];
 
-  function LoginController(PATTERNS, ERRORS, $rootScope, $location, loginService) {
+  function LoginController(CONFIG, $rootScope, $location, loginService) {
     var vm = this;
-    vm.loginRegex = PATTERNS.loginRegex;
-    vm.passRegex = PATTERNS.passRegex;
+    vm.loginRegex = CONFIG.patterns.loginRegex;
+    vm.passRegex = CONFIG.patterns.passRegex;
     vm.hasError = hasError;
     vm.validate = validate;
     vm.login = login;
@@ -69,7 +69,7 @@ define([
     }
 
     function onLoginError() {
-      vm.error = ERRORS.auth;
+      vm.error = CONFIG.errors.auth;
       vm.user.password = '';
       vm.isPasswordRequired = true;
     }

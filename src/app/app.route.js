@@ -9,24 +9,25 @@ define([
     .module('App')
     .config(config);
 
-  config.$inject = ['TEMPLATES', '$routeProvider'];
+  config.$inject = ['appConfig', '$routeProvider'];
 
-  function config(TEMPLATES, $routeProvider) {
+  function config(CONFIG, $routeProvider) {
     $routeProvider.when('/login', {
-      templateUrl: TEMPLATES.login,
+      templateUrl: CONFIG.templates.login,
       controller: 'LoginController',
       controllerAs: 'loginForm'
     });
     $routeProvider.when('/courses', {
-      templateUrl: TEMPLATES.courses,
-      controller: 'CoursesController'
+      templateUrl: CONFIG.templates.courses,
+      controller: 'CoursesController',
+      controllerAs: 'coursesList'
     });
     $routeProvider.when('/courses/new', {
-      templateUrl: TEMPLATES.details,
+      templateUrl: CONFIG.templates.details,
       controller: 'CourseDetailsController'
     });
     $routeProvider.when('/courses/:id', {
-      templateUrl: TEMPLATES.details,
+      templateUrl: CONFIG.templates.details,
       controller: 'CourseDetailsController'
     });
     $routeProvider.otherwise({

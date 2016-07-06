@@ -8,9 +8,9 @@ define([
     .module('App')
     .factory("loginService", loginService);
 
-  loginService.$inject = ['TEST_USER', '$httpBackend', '$http', 'localStorageService'];
+  loginService.$inject = ['appConfig', '$httpBackend', '$http', 'localStorageService'];
 
-  function loginService(TEST_USER, $httpBackend, $http, localStorageService) {
+  function loginService(CONFIG, $httpBackend, $http, localStorageService) {
     var service = {
       login: login,
       logout: logout,
@@ -20,7 +20,7 @@ define([
     return service;
 
     function login(user) {
-      $httpBackend.whenPOST('/login', _.omit(TEST_USER, 'username')).respond(TEST_USER);
+      $httpBackend.whenPOST('/login', _.omit(CONFIG.test_user, 'username')).respond(CONFIG.test_user);
       return $http.post('/login', user).then(onLoginSuccess);
     }
 

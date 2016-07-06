@@ -10,13 +10,14 @@ define([
     .module('App')
     .run(run);
 
-  run.$inject = ['TEMPLATES', '$httpBackend', '$rootScope', '$route', '$location', 'loginService'];
+  run.$inject = ['appConfig', '$httpBackend', '$rootScope', '$route', '$location', 'loginService'];
 
-  function run(TEMPLATES, $httpBackend, $rootScope, $route, $location, loginService) {
+  function run(CONFIG, $httpBackend, $rootScope, $route, $location, loginService) {
     // routes mocks
-    $httpBackend.whenGET(TEMPLATES.login).passThrough();
-    $httpBackend.whenGET(TEMPLATES.courses).passThrough();
-    $httpBackend.whenGET(TEMPLATES.details).passThrough();
+    $httpBackend.whenGET(CONFIG.templates.login).passThrough();
+    $httpBackend.whenGET(CONFIG.templates.courses).passThrough();
+    $httpBackend.whenGET(CONFIG.templates.deleteCoursePopup).passThrough();
+    $httpBackend.whenGET(CONFIG.templates.details).passThrough();
 
     // bind listeners on events
     $rootScope.$on('$locationChangeStart', checkAuth);

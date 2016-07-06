@@ -21,7 +21,9 @@ define([
     init();
 
     function logout() {
-      loginService.logout().then(onLogoutSuccess);
+      loginService
+        .logout()
+        .then(onLogoutSuccess);
     }
 
     function onLogoutSuccess() {

@@ -7,39 +7,57 @@ define([
     .module('Courses')
     .controller("CoursesController", CoursesController);
 
-  CoursesController.$inject = ['$scope', '$location', '$uibModal', 'coursesService'];
+  CoursesController.$inject = ['appConfig', '$location', '$uibModal', 'coursesService'];
 
-  function CoursesController($scope, $location, $uibModal, coursesService) {
-    $scope.sortOrder = '-createdDate';
-    coursesService.get()
-      .then(function(response) {
-        $scope.courses = response;
-      });
+  function CoursesController(CONFIG, $location, $uibModal, coursesService) {
+    var vm = this;
+    vm.sortOrder = CONFIG.sortOrder;
+    vm.addCourse = addCourse;
+    vm.editCourse = editCourse;
+    vm.removeCourse = removeCourse;
+    vm.courses = [];
 
-    $scope.addCourse = function() {
+    init();
+
+    function init() {
+      coursesService
+        .get()
+        .then(onGetCoursesSuccess);
+    }
+
+    function onGetCoursesSuccess(response) {
+      vm.courses = response;
+    }
+
+    function addCourse() {
       $location.url('/courses/new');
-    };
+    }
 
-    $scope.editCourse = function(course) {
+    function editCourse(course) {
       $location.url('/courses/' + course.id);
-    };
+    }
 
-    $scope.removeCourse = function(course) {
-      var modalInstance = $uibModal.open({
-        templateUrl: 'deleteModalContent.html',
-        controller: 'DeleteCourseController',
-        size: 'sm'
-      });
+    function removeCourse(course) {
+      $uibModal
+        .open({
+          templateUrl: CONFIG.templates.deleteCoursePopup,
+          controller: 'DeleteCourseController',
+          size: 'sm'
+        })
+        .result
+        .then(onModalSuccess.bind(null, course.id));
+    }
 
-      modalInstance.result.then(function() {
-        coursesService.delete(course.id)
-          .then(function(response) {
-            $scope.courses = response;
-          });
-      }, function () {
-        // console.log('Modal dismissed');
-      });
-    };
+    function onModalSuccess(id) {
+      coursesService
+        .delete(id)
+        .then(onDeleteCourseSuccess);
+    }
+
+    function onDeleteCourseSuccess(response) {
+      vm.courses = response;
+    }
+
   }
 
 });
