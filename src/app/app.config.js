@@ -16,6 +16,13 @@ define([
       password: 'test',
       username: 'Test User'
     })
+    .constant("PATTERNS", {
+      loginRegex: '[A-Za-z]+',
+      passRegex: '[A-Za-z0-9]+'
+    })
+    .constant("ERRORS", {
+      auth: 'Wrong login or password'
+    })
     .value("defaultCounter", 5);
 
 });

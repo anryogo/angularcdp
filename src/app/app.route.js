@@ -14,7 +14,8 @@ define([
   function config(TEMPLATES, $routeProvider) {
     $routeProvider.when('/login', {
       templateUrl: TEMPLATES.login,
-      controller: 'LoginController'
+      controller: 'LoginController',
+      controllerAs: 'loginForm'
     });
     $routeProvider.when('/courses', {
       templateUrl: TEMPLATES.courses,

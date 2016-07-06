@@ -7,46 +7,73 @@ define([
     .module('Login')
     .controller("LoginController", LoginController);
 
-  LoginController.$inject = ['$rootScope', '$scope', '$location', 'loginService'];
+  LoginController.$inject = ['PATTERNS', 'ERRORS', '$rootScope', '$location', 'loginService'];
 
-  function LoginController($rootScope, $scope, $location, loginService) {
-    $scope.loginRegex = '[A-Za-z]+';
-    $scope.passRegex = '[A-Za-z0-9]+';
-    $scope.error = null;
+  function LoginController(PATTERNS, ERRORS, $rootScope, $location, loginService) {
+    var vm = this;
+    vm.loginRegex = PATTERNS.loginRegex;
+    vm.passRegex = PATTERNS.passRegex;
+    vm.hasError = hasError;
+    vm.validate = validate;
+    vm.login = login;
+    vm.user = {};
+    
+    var isLoginInvalid, isPasswordInvalid;
+    
+    function hasError(field) {
+      var hasError;
+      
+      switch (field) {
+        case 'login':
+          hasError = isLoginInvalid || vm.isLoginRequired;
+          break;
+        case 'password':
+          hasError = isPasswordInvalid || vm.isPasswordRequired;
+          break;
+      }
+      
+      return hasError;
+    }
 
-    $scope.validate = function(e) {
-      var target = e.target,
-        className = target.className;
+    function validate(event) {
+      var target = event.target,
+          className = target.className;
 
       switch (target.id) {
         case 'inputLogin':
-          $scope.isLoginRequired = validateClass(className);
-          $scope.isLoginInvalid = validateClass(className);
+          vm.isLoginRequired = validateClass(className);
+          isLoginInvalid = validateClass(className);
           break;
         case 'inputPassword':
-          $scope.isPasswordRequired = validateClass(className);
-          $scope.isPasswordInvalid = validateClass(className);
+          vm.isPasswordRequired = validateClass(className);
+          isPasswordInvalid = validateClass(className);
           break;
       }
-    };
-
-    $scope.login = function(user) {
-      loginService.login(user)
-        .then(function(data) {
-          $rootScope.account = data;
-          $location.url('/courses');
-        })
-        .catch(function() {
-          $scope.error = "Wrong login or password";
-          $scope.user.password = '';
-          $scope.isPasswordRequired = true;
-        });
-    };
+    }
 
     function validateClass(className) {
       return className.indexOf('ng-invalid-required') >= 0 ||
-        className.indexOf('ng-invalid-pattern') >= 0;
+             className.indexOf('ng-invalid-pattern') >= 0;
     }
+
+    function login() {
+      loginService
+        .login(vm.user)
+        .then(onLoginSuccess)
+        .catch(onLoginError);
+    }
+
+    function onLoginSuccess(data) {
+      $rootScope.account = data;
+      $location.url('/courses');
+    }
+
+    function onLoginError() {
+      vm.error = ERRORS.auth;
+      vm.user.password = '';
+      vm.isPasswordRequired = true;
+    }
+
   }
 
 });
