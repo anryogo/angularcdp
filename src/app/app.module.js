@@ -13,6 +13,12 @@ define([
       'ngRoute',
       'ngResource',
       'ngMockE2E',
+
+      'Base',
+      'Login',
+      'Courses',
+      'CourseDetails',
+
       'ui.bootstrap',
       'LocalStorageModule'
     ]);

@@ -10,20 +10,28 @@ define([
     'appRoute',
     'appRun'
   ], function() {
-    // Load components modules
+    // Load application modules
     require([
-      'services/courses_service',
-      'services/login_service',      
-      'base/base_controller',
-      'login/login_controller',
-      'courses/courses_controller',
-      'courses/delete_course_controller',
-      'courses/durations_filter',
-      'course_details/course_details_controller',
-      'course_details/error_modal_contorller'
+      'services/courses.service',
+      'services/login.service',
+      'base/base.module',
+      'login/login.module',
+      'courses/courses.module',
+      'course-details/course-details.module'
     ], function() {
-      // Manual Angular initialization
-      angular.bootstrap(document, ['App']);
+      // Load components structure
+      require([
+        'base/base.controller',
+        'login/login.controller',
+        'courses/courses.controller',
+        'courses/delete-course.controller',
+        'courses/durations.filter',
+        'course-details/course-details.controller',
+        'course-details/error-modal.contorller'
+      ], function() {
+        // Manual Angular initialization
+        angular.bootstrap(document, ['App']);
+      });
     });
   });
 

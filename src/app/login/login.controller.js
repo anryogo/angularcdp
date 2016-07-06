@@ -4,8 +4,12 @@ define([
   'use strict';
 
   angular
-    .module('App')
-    .controller("LoginController", function($rootScope, $scope, $location, LoginService) {
+    .module('Login')
+    .controller("LoginController", LoginController);
+
+  LoginController.$inject = ['$rootScope', '$scope', '$location', 'LoginService'];
+
+  function LoginController($rootScope, $scope, $location, LoginService) {
     $scope.loginRegex = '[A-Za-z]+';
     $scope.passRegex = '[A-Za-z0-9]+';
     $scope.error = null;
@@ -43,6 +47,6 @@ define([
       return className.indexOf('ng-invalid-required') >= 0 ||
         className.indexOf('ng-invalid-pattern') >= 0;
     }
-  });
+  }
   
 });

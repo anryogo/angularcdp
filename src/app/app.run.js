@@ -13,7 +13,7 @@ define([
   function run($httpBackend, $rootScope, $route, $location, LoginService) {
     $httpBackend.whenGET('app/login/login.html').passThrough();
     $httpBackend.whenGET('app/courses/courses.html').passThrough();
-    $httpBackend.whenGET('app/course_details/course_details.html').passThrough();
+    $httpBackend.whenGET('app/course-details/course_details.html').passThrough();
 
     $rootScope.$on('$locationChangeStart', checkAuth);
 

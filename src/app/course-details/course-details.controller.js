@@ -4,8 +4,12 @@ define([
   'use strict';
 
   angular
-    .module('App')
-    .controller("CourseDetailsController", function($rootScope, $scope, $routeParams, $location, $uibModal, CoursesService) {
+    .module('CourseDetails')
+    .controller("CourseDetailsController", CourseDetailsController);
+
+  CourseDetailsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', '$uibModal', 'CoursesService'];
+
+  function CourseDetailsController($rootScope, $scope, $routeParams, $location, $uibModal, CoursesService) {
     $scope.allAuthors = [
       'Ivanov',
       'Petrov',
@@ -64,6 +68,6 @@ define([
         .$promise
         .then($scope.returnBack);
     }
-  });
+  }
   
 });

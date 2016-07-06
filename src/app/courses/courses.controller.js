@@ -4,8 +4,12 @@ define([
   'use strict';
 
   angular
-    .module('App')
-    .controller("CoursesController", function($scope, $location, $uibModal, CoursesService) {
+    .module('Courses')
+    .controller("CoursesController", CoursesController);
+
+  CoursesController.$inject = ['$scope', '$location', '$uibModal', 'CoursesService'];
+
+  function CoursesController($scope, $location, $uibModal, CoursesService) {
     $scope.sortOrder = '-createdDate';
     CoursesService.get()
       .$promise
@@ -38,6 +42,6 @@ define([
         // console.log('Modal dismissed');
       });
     };
-  });
+  }
   
 });

@@ -4,8 +4,12 @@ define([
   'use strict';
 
   angular
-    .module('App')
-    .controller("ErrorModalController", function($scope, $uibModalInstance, errorMessage) {
+    .module('CourseDetails')
+    .controller("ErrorModalController", ErrorModalController);
+
+  ErrorModalController.$inject = ['$scope', '$uibModalInstance', 'errorMessage'];
+  
+  function ErrorModalController($scope, $uibModalInstance, errorMessage) {
     $scope.error = errorMessage;
 
     $scope.ok = function() {
@@ -15,6 +19,6 @@ define([
     $scope.cancel = function() {
       $uibModalInstance.dismiss('cancel');
     };
-  });
-
+  }
+  
 });

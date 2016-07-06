@@ -4,8 +4,10 @@ define([
   'use strict';
 
   angular
-    .module('App')
-    .filter("durations", function() {
+    .module('Courses')
+    .filter("durations", durations);
+
+  function durations() {
     return function(duration) {
       var hours = Math.floor(duration / 60);
       var minutes = duration % 60;
@@ -20,6 +22,6 @@ define([
         return minutes + ' min';
       }
     };
-  });
+  }
 
 });

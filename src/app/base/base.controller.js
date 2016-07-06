@@ -4,8 +4,12 @@ define([
   'use strict';
 
   angular
-    .module('App')
-    .controller("BaseController", function($rootScope, $scope, $location, LoginService) {
+    .module('Base')
+    .controller("BaseController", BaseController);
+
+  BaseController.$inject = ['$rootScope', '$scope', '$location', 'LoginService'];
+
+  function BaseController($rootScope, $scope, $location, LoginService) {
     $rootScope.currentUser = LoginService.getLogin();
 
     $rootScope.$watch('currentUser', function(value) {
@@ -18,6 +22,6 @@ define([
         $location.url('/login');
       });
     };
-  });
+  }
   
 });

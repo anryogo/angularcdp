@@ -20,11 +20,11 @@ define([
       controller: 'CoursesController'
     });
     $routeProvider.when('/courses/new', {
-      templateUrl: 'app/course_details/course_details.html',
+      templateUrl: 'app/course-details/course_details.html',
       controller: 'CourseDetailsController'
     });
     $routeProvider.when('/courses/:id', {
-      templateUrl: 'app/course_details/course_details.html',
+      templateUrl: 'app/course-details/course_details.html',
       controller: 'CourseDetailsController'
     });
     $routeProvider.otherwise({
