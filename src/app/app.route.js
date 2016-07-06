@@ -24,11 +24,13 @@ define([
     });
     $routeProvider.when('/courses/new', {
       templateUrl: CONFIG.templates.details,
-      controller: 'CourseDetailsController'
+      controller: 'CourseDetailsController',
+      controllerAs: 'courseDetails'
     });
     $routeProvider.when('/courses/:id', {
       templateUrl: CONFIG.templates.details,
-      controller: 'CourseDetailsController'
+      controller: 'CourseDetailsController',
+      controllerAs: 'courseDetails'
     });
     $routeProvider.otherwise({
       redirectTo: '/courses'

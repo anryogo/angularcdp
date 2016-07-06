@@ -41,7 +41,7 @@ define([
       $uibModal
         .open({
           templateUrl: CONFIG.templates.deleteCoursePopup,
-          controller: 'DeleteCourseController',
+          controller: 'DeleteModalController',
           size: 'sm'
         })
         .result

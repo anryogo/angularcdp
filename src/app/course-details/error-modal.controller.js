@@ -11,14 +11,16 @@ define([
   
   function ErrorModalController($scope, $uibModalInstance, errorMessage) {
     $scope.error = errorMessage;
+    $scope.ok = ok;
+    $scope.cancel = cancel;
 
-    $scope.ok = function() {
+    function ok() {
       $uibModalInstance.close();
-    };
+    }
 
-    $scope.cancel = function() {
+    function cancel() {
       $uibModalInstance.dismiss('cancel');
-    };
+    }
   }
   
 });

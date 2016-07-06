@@ -29,11 +29,11 @@ define([
         'login/login.controller',
 
         'courses/courses.controller',
-        'courses/delete-course.controller',
+        'courses/delete-modal.controller',
         'courses/durations.filter',
 
         'course-details/course-details.controller',
-        'course-details/error-modal.contorller'
+        'course-details/error-modal.controller'
       ], function() {
         // Manual Angular initialization
         angular.bootstrap(document, ['App']);

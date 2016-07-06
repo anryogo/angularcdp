@@ -16,8 +16,9 @@ define([
     // routes mocks
     $httpBackend.whenGET(CONFIG.templates.login).passThrough();
     $httpBackend.whenGET(CONFIG.templates.courses).passThrough();
-    $httpBackend.whenGET(CONFIG.templates.deleteCoursePopup).passThrough();
     $httpBackend.whenGET(CONFIG.templates.details).passThrough();
+    $httpBackend.whenGET(CONFIG.templates.deleteCoursePopup).passThrough();
+    $httpBackend.whenGET(CONFIG.templates.errorCoursePopup).passThrough();
 
     // bind listeners on events
     $rootScope.$on('$locationChangeStart', checkAuth);

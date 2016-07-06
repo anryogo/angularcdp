@@ -5,11 +5,11 @@ define([
 
   angular
     .module('Courses')
-    .controller("DeleteCourseController", DeleteCourseController);
+    .controller("DeleteModalController", DeleteModalController);
 
-  DeleteCourseController.$inject = ['$scope', '$uibModalInstance'];
+  DeleteModalController.$inject = ['$scope', '$uibModalInstance'];
 
-  function DeleteCourseController($scope, $uibModalInstance) {
+  function DeleteModalController($scope, $uibModalInstance) {
     $scope.ok = ok;
     $scope.cancel = cancel;
 

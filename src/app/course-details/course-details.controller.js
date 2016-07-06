@@ -1,71 +1,94 @@
 define([
+  'lodash',
   'angular'
-], function(angular) {
+], function(_, angular) {
   'use strict';
 
   angular
     .module('CourseDetails')
     .controller("CourseDetailsController", CourseDetailsController);
 
-  CourseDetailsController.$inject = ['$rootScope', '$scope', '$routeParams', '$location', '$uibModal', 'coursesService'];
+  CourseDetailsController.$inject = [
+    'appConfig',
+    '$rootScope',
+    '$scope',
+    '$routeParams',
+    '$location',
+    '$uibModal',
+    'coursesService'
+  ];
 
-  function CourseDetailsController($rootScope, $scope, $routeParams, $location, $uibModal, coursesService) {
-    $scope.allAuthors = [
-      'Ivanov',
-      'Petrov',
-      'Sidorov',
-      'Lermontov'
-    ];
-    $scope.course = {};
-    $scope.course.authors = [];
+  function CourseDetailsController(CONFIG, $rootScope, $scope, $routeParams, $location, $uibModal, coursesService) {
+    var vm = this;
+    vm.allAuthors = CONFIG.defaultAuthors;
+    vm.addAuthors = addAuthors;
+    vm.removeAuthors = removeAuthors;
+    vm.saveCourse = saveCourse;
+    vm.returnBack = returnBack;
+    vm.course = {};
+    vm.course.authors = [];
 
-    if ($routeParams.id) {
-      coursesService.get($routeParams.id)
-        .then(function(response) {
-          $scope.course = response;
-          $scope.allAuthors = _.difference($scope.allAuthors, $scope.course.authors);
-        });
+    // bind listeners on events
+    $scope.$watch('courseDetails.course.title', onChangeCourseTitle);
+
+    init();
+
+    function onChangeCourseTitle(value) {
+      $rootScope.breadcrumbTitle = value;
     }
 
-    $scope.$watch('course.title', function(value) {
-      $rootScope.breadcrumbTitle = value;
-    });
+    function init() {
+      if ($routeParams.id) {
+        coursesService
+          .get($routeParams.id)
+          .then(onGetCourseSuccess);
+      }
+    }
 
-    $scope.addAuthors = function(authors) {
-      $scope.course.authors = $scope.course.authors.concat(authors);
-      $scope.allAuthors = _.difference($scope.allAuthors, authors);
-    };
+    function onGetCourseSuccess(response) {
+      vm.course = response;
+      vm.allAuthors = _.difference(vm.allAuthors, vm.course.authors);
+    }
 
-    $scope.removeAuthors = function(authors) {
-      $scope.course.authors = _.difference($scope.course.authors, authors);
-      $scope.allAuthors = $scope.allAuthors.concat(authors);
-    };
+    function addAuthors(authors) {
+      vm.course.authors = vm.course.authors.concat(authors);
+      vm.allAuthors = _.difference(vm.allAuthors, authors);
+    }
 
-    $scope.submit = function(courseDetailsForm) {
+    function removeAuthors(authors) {
+      vm.course.authors = _.difference(vm.course.authors, authors);
+      vm.allAuthors = vm.allAuthors.concat(authors);
+    }
+
+    function saveCourse(courseDetailsForm) {
       if (courseDetailsForm.$invalid) {
         $uibModal.open({
-          templateUrl: 'errorContent.html',
+          templateUrl: CONFIG.templates.errorCoursePopup,
           controller: 'ErrorModalController',
           resolve: {
-            errorMessage: function() {
-              return "Form's fields are filled incorrect";
-            }
+            errorMessage: getErrorMessage
           }
         });
       } else {
         createOrUpdateCourse();
       }
-    };
+    }
 
-    $scope.returnBack = function() {
-      $location.url('/courses');
-    };
+    function getErrorMessage() {
+      return CONFIG.errors.courseInvalid;
+    }
 
     function createOrUpdateCourse() {
-      var method = $scope.course.id ? 'save' : 'create';
-      coursesService[method]($scope.course)
-        .then($scope.returnBack);
+      var method = vm.course.id ? 'save' : 'create';
+      coursesService
+        [method](vm.course)
+        .then(returnBack);
     }
+
+    function returnBack() {
+      $location.url('/courses');
+    }
+
   }
-  
+
 });
