@@ -3,8 +3,8 @@
 @import 'layouts';
 
 // components
-@import '../components/courses/main';
-@import '../components/course_details/main';
+@import '../app/courses/main';
+@import '../app/course_details/main';
 
 // overide some Bootstrap styles
 @import 'vendor';
