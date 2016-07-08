@@ -7,12 +7,13 @@ define([
     .module('CourseDetails')
     .controller("ErrorModalController", ErrorModalController);
 
-  ErrorModalController.$inject = ['$scope', '$uibModalInstance', 'errorMessage'];
-  
-  function ErrorModalController($scope, $uibModalInstance, errorMessage) {
-    $scope.error = errorMessage;
-    $scope.ok = ok;
-    $scope.cancel = cancel;
+  ErrorModalController.$inject = ['$uibModalInstance', 'errorMessage'];
+
+  function ErrorModalController($uibModalInstance, errorMessage) {
+    var vm = this;
+    vm.error = errorMessage;
+    vm.ok = ok;
+    vm.cancel = cancel;
 
     function ok() {
       $uibModalInstance.close();
@@ -22,5 +23,5 @@ define([
       $uibModalInstance.dismiss('cancel');
     }
   }
-  
+
 });

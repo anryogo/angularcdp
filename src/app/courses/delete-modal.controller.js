@@ -7,11 +7,12 @@ define([
     .module('Courses')
     .controller("DeleteModalController", DeleteModalController);
 
-  DeleteModalController.$inject = ['$scope', '$uibModalInstance'];
+  DeleteModalController.$inject = ['$uibModalInstance'];
 
-  function DeleteModalController($scope, $uibModalInstance) {
-    $scope.ok = ok;
-    $scope.cancel = cancel;
+  function DeleteModalController($uibModalInstance) {
+    var vm = this;
+    vm.ok = ok;
+    vm.cancel = cancel;
 
     function ok() {
       $uibModalInstance.close();
@@ -20,7 +21,6 @@ define([
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }
-
   }
 
 });

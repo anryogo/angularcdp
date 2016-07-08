@@ -42,6 +42,7 @@ define([
         .open({
           templateUrl: CONFIG.templates.deleteCoursePopup,
           controller: 'DeleteModalController',
+          controllerAs: 'modal',
           size: 'sm'
         })
         .result

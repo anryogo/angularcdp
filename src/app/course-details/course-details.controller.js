@@ -65,6 +65,7 @@ define([
         $uibModal.open({
           templateUrl: CONFIG.templates.errorCoursePopup,
           controller: 'ErrorModalController',
+          controllerAs: 'modal',
           resolve: {
             errorMessage: getErrorMessage
           }
