@@ -7,9 +7,9 @@ define([
     .module('Courses')
     .controller("CoursesController", CoursesController);
 
-  CoursesController.$inject = ['appConfig', '$location', '$uibModal', 'coursesService'];
+  CoursesController.$inject = ['appConfig', '$state', '$uibModal', 'coursesService'];
 
-  function CoursesController(CONFIG, $location, $uibModal, coursesService) {
+  function CoursesController(CONFIG, $state, $uibModal, coursesService) {
     var vm = this;
     vm.sortOrder = CONFIG.sortOrder;
     vm.addCourse = addCourse;
@@ -30,11 +30,11 @@ define([
     }
 
     function addCourse() {
-      $location.url('/courses/new');
+      $state.go('newCourse');
     }
 
     function editCourse(course) {
-      $location.url('/courses/' + course.id);
+      $state.go('editCourse', { id: course.id });
     }
 
     function removeCourse(course) {

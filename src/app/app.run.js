@@ -10,9 +10,9 @@ define([
     .module('App')
     .run(run);
 
-  run.$inject = ['appConfig', '$httpBackend', '$rootScope', '$route', '$location', 'loginService'];
+  run.$inject = ['appConfig', '$httpBackend', '$rootScope', '$state', 'loginService'];
 
-  function run(CONFIG, $httpBackend, $rootScope, $route, $location, loginService) {
+  function run(CONFIG, $httpBackend, $rootScope, $state, loginService) {
     // routes mocks
     $httpBackend.whenGET(CONFIG.templates.login).passThrough();
     $httpBackend.whenGET(CONFIG.templates.courses).passThrough();
@@ -21,17 +21,17 @@ define([
     $httpBackend.whenGET(CONFIG.templates.errorCoursePopup).passThrough();
 
     // bind listeners on events
-    $rootScope.$on('$locationChangeStart', checkAuth);
+    $rootScope.$on('$stateChangeSuccess', checkAuth);
 
-    function checkAuth() {
-      var isNotLogged = _.isEmpty(loginService.getLogin()),
-          route = $location.path().replace(/\d+/g, ':id'),
-          isAvailableRoute = $route.routes[route] && route !== '/login';
+    function checkAuth(event, toState, toParams, fromState, fromParams) {
+      var state = toState.name,
+          isLoginState = state == 'login',
+          isNotLogged = _.isEmpty(loginService.getLogin());
 
       if (isNotLogged) {
-        $location.url('/login');
-      } else if (!isAvailableRoute) {
-        $location.url('/courses');
+        $state.go('login');
+      } else if (isLoginState) {
+        $state.go('courses');
       }
     }
   }

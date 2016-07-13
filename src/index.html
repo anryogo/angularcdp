@@ -16,7 +16,7 @@
       <div class="container">
         <a class="navbar-brand" href="/">Angular CDP</a>
         <ul class="nav navbar-nav" ng-show="base.isLogged">
-          <li class="active"><a href="#/courses">Courses</a></li>
+          <li class="active"><a ui-sref="courses">Courses</a></li>
         </ul>
         <p class="navbar-text" ng-show="!!breadcrumbTitle">{{breadcrumbTitle}}</p>
         <div class="navbar-right" ng-show="base.isLogged">
@@ -30,7 +30,7 @@
       </div>
     </nav>
 
-    <ng-view></ng-view>
+    <ui-view></ui-view>
 
     <footer class="l-footer navbar navbar-default navbar-fixed-bottom">
       <div class="container">

@@ -7,9 +7,9 @@ define([
     .module('Login')
     .controller("LoginController", LoginController);
 
-  LoginController.$inject = ['appConfig', '$rootScope', '$location', 'loginService'];
+  LoginController.$inject = ['appConfig', '$rootScope', '$state', 'loginService'];
 
-  function LoginController(CONFIG, $rootScope, $location, loginService) {
+  function LoginController(CONFIG, $rootScope, $state, loginService) {
     var vm = this;
     vm.loginRegex = CONFIG.patterns.loginRegex;
     vm.passRegex = CONFIG.patterns.passRegex;
@@ -65,7 +65,7 @@ define([
 
     function onLoginSuccess(data) {
       $rootScope.account = data;
-      $location.url('/courses');
+      $state.go('courses');
     }
 
     function onLoginError() {

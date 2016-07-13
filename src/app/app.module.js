@@ -1,16 +1,15 @@
 define([
   'angular',
-  'angular-route',
   'angular-resource',
   'angular-mocks',
   'angular-bootstrap',
-  'angular-local-storage'
+  'angular-local-storage',
+  'angular-ui-router'
 ], function(angular) {
   'use strict';
 
   angular
     .module("App", [
-      'ngRoute',
       'ngResource',
       'ngMockE2E',
 
@@ -20,6 +19,7 @@ define([
       'CourseDetails',
 
       'ui.bootstrap',
+      'ui.router',
       'LocalStorageModule'
     ]);
 

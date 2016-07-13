@@ -8,15 +8,15 @@ define([
     .module('Base')
     .controller("BaseController", BaseController);
 
-  BaseController.$inject = ['$rootScope', '$location', 'loginService'];
+  BaseController.$inject = ['$rootScope', '$state', 'loginService'];
 
-  function BaseController($rootScope, $location, loginService) {
+  function BaseController($rootScope, $state, loginService) {
     var vm = this;
     vm.logout = logout;
 
     // bind listeners on events
     $rootScope.$watch('account', onAccountChange);
-    $rootScope.$on('$locationChangeStart', clearBreadcrumbs);
+    $rootScope.$on('$stateChangeSuccess', clearBreadcrumbs);
 
     init();
 
@@ -28,7 +28,7 @@ define([
 
     function onLogoutSuccess() {
       $rootScope.account = {};
-      $location.url('/login');
+      $state.go('login');
     }
 
     function onAccountChange(value) {

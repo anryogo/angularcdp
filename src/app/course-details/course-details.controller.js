@@ -12,13 +12,13 @@ define([
     'appConfig',
     '$rootScope',
     '$scope',
-    '$routeParams',
-    '$location',
+    '$state',
+    '$stateParams',
     '$uibModal',
     'coursesService'
   ];
 
-  function CourseDetailsController(CONFIG, $rootScope, $scope, $routeParams, $location, $uibModal, coursesService) {
+  function CourseDetailsController(CONFIG, $rootScope, $scope, $state, $stateParams, $uibModal, coursesService) {
     var vm = this;
     vm.allAuthors = CONFIG.defaultAuthors;
     vm.addAuthors = addAuthors;
@@ -38,9 +38,9 @@ define([
     }
 
     function init() {
-      if ($routeParams.id) {
+      if ($stateParams.id) {
         coursesService
-          .get($routeParams.id)
+          .get($stateParams.id)
           .then(onGetCourseSuccess);
       }
     }
@@ -87,7 +87,7 @@ define([
     }
 
     function returnBack() {
-      $location.url('/courses');
+      $state.go('courses');
     }
 
   }
