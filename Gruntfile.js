@@ -8,9 +8,23 @@ module.exports = function(grunt) {
         sourceMap: true,
         outputStyle: 'compressed'
       },
-      dist: {
+      compile: {
         files: {
-          'src/css/main.css': 'src/scss/main.scss'
+          'src/_tmp/build.css': 'src/scss/main.scss'
+        }
+      }
+    },
+
+    requirejs: {
+      compile: {
+        options: {
+          mainConfigFile: 'src/main.js',
+          out: 'src/_tmp/build.js',
+          include: [
+            '../main'
+          ],
+          findNestedDependencies: true,
+          preserveLicenseComments: false
         }
       }
     },
@@ -22,6 +36,10 @@ module.exports = function(grunt) {
       css: {
         files: ['src/**/*.scss'],
         tasks: ['sass']
+      },
+      js: {
+        files: ['src/**/*.js'],
+        tasks: ['requirejs']
       }
     },
 
@@ -35,5 +53,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['sass', 'connect', 'watch']);
+  grunt.registerTask('default', ['sass', 'requirejs', 'connect', 'watch']);
 };
