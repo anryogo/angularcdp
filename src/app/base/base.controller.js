@@ -1,47 +1,39 @@
-define([
-  'lodash',
-  'angular'
-], function(_, angular) {
-  'use strict';
+import _ from 'lodash';
 
-  angular
-    .module('Base')
-    .controller("BaseController", BaseController);
-
-  BaseController.$inject = ['$rootScope', '$state', 'loginService'];
-
-  function BaseController($rootScope, $state, loginService) {
-    var vm = this;
-    vm.logout = logout;
+export class BaseController {
+  constructor($rootScope, $state, loginService) {
+    'ngInject';
+    this.$state = $state;
+    this.loginService = loginService;
+    this.$rootScope = $rootScope;
 
     // bind listeners on events
-    $rootScope.$watch('account', onAccountChange);
-    $rootScope.$on('$stateChangeSuccess', clearBreadcrumbs);
+    $rootScope.$watch('account', this.onAccountChange);
+    $rootScope.$on('$stateChangeSuccess', this.clearBreadcrumbs);
 
-    init();
-
-    function logout() {
-      loginService
-        .logout()
-        .then(onLogoutSuccess);
-    }
-
-    function onLogoutSuccess() {
-      $rootScope.account = {};
-      $state.go('login');
-    }
-
-    function onAccountChange(value) {
-      vm.isLogged = !_.isEmpty(value);
-    }
-
-    function clearBreadcrumbs() {
-      $rootScope.breadcrumbTitle = null;
-    }
-
-    function init() {
-      $rootScope.account = loginService.getLogin();
-    }
+    this.init();
   }
 
-});
+  onAccountChange(value) {
+    this.isLogged = !_.isEmpty(value);
+  }
+
+  clearBreadcrumbs() {
+    this.$rootScope.breadcrumbTitle = null;
+  }
+
+  init() {
+    this.$rootScope.account = this.loginService.getLogin();
+  }
+
+  logout() {
+    this.loginService
+      .logout()
+      .then(this.onLogoutSuccess);
+  }
+
+  onLogoutSuccess() {
+    this.$rootScope.account = {};
+    this.$state.go('login');
+  }
+}

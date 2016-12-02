@@ -1,17 +1,7 @@
-define([
-  'angular',
-  'app',
-  'app.config'
-], function(angular) {
-  'use strict';
+export class States {
+  constructor(CONFIG, $stateProvider, $urlRouterProvider) {
+    'ngInject';
 
-  angular
-    .module('App')
-    .config(config);
-
-  config.$inject = ['appConfig', '$stateProvider', '$urlRouterProvider'];
-
-  function config(CONFIG, $stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
@@ -40,5 +30,4 @@ define([
 
     $urlRouterProvider.otherwise('/courses');
   }
-
-});
+}

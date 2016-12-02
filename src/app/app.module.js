@@ -1,26 +1,31 @@
-define([
-  'angular',
-  'angular-resource',
-  'angular-mocks',
-  'angular-bootstrap',
-  'angular-local-storage',
-  'angular-ui-router'
-], function(angular) {
-  'use strict';
+import angular from 'angular';
+import ngResource from 'angular-resource';
+import ngMockE2E from 'angular-mocks';
+import uiBootstrap from 'angular-bootstrap';
+import uiRouter from 'angular-ui-router';
+import LocalStorageModule from 'angular-local-storage';
 
-  angular
-    .module("App", [
-      'ngResource',
-      'ngMockE2E',
+import { CONFIG } from './app.config';
+import { States } from './app.states';
+import { Run } from './app.run';
 
-      'Base',
-      'Login',
-      'Courses',
-      'CourseDetails',
+import { BaseModule } from './base/base.module';
 
-      'ui.bootstrap',
-      'ui.router',
-      'LocalStorageModule'
-    ]);
+export const AppModule = angular
+  .module('App', [
+    ngResource,
+    ngMockE2E,
 
-});
+    BaseModule,
+    'Login',
+    'Courses',
+    'CourseDetails',
+
+    uiBootstrap,
+    uiRouter,
+    LocalStorageModule
+  ])
+  .constant('CONFIG', CONFIG)
+  .config(States)
+  .run(Run)
+  .name;

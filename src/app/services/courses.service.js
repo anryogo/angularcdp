@@ -9,10 +9,10 @@ define([
     .module('App')
     .factory("coursesService", coursesService);
 
-  coursesService.$inject = ['$httpBackend', '$resource', 'defaultCounter'];
+  coursesService.$inject = ['$httpBackend', '$resource'];
 
-  function coursesService($httpBackend, $resource, defaultCounter) {
-    var counter = defaultCounter,
+  function coursesService($httpBackend, $resource) {
+    var counter = 5,
         courses = coursesConfig,
         resource = $resource('/courses/:id', {id: '@id'}, {
           getAll: {method: 'GET', isArray: true},

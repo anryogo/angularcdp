@@ -8,7 +8,7 @@ define([
   require([
     'app',
     'app.config',
-    'app.state',
+    'app.states',
     'app.run'
   ], function() {
     require([

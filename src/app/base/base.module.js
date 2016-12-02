@@ -1,9 +1,7 @@
-define([
-  'angular'
-], function(angular) {
-  'use strict';
+import angular from 'angular';
+import { BaseController } from './base.controller';
 
-  angular
-    .module("Base", []);
-
-});
+export const BaseModule = angular
+  .module('Base', [])
+  .controller('BaseController', BaseController)
+  .name;

@@ -1,39 +1,28 @@
-define([
-  'lodash',
-  'angular',
-  'app',
-  'app.config'
-], function(_, angular) {
-  'use strict';
+import _ from 'lodash';
 
-  angular
-    .module('App')
-    .run(run);
+export class Run {
+  constructor(CONFIG, $httpBackend, $rootScope, $state, loginService) {
+    'ngInject';
+    this.$state = $state;
+    this.loginService = loginService;
 
-  run.$inject = ['appConfig', '$httpBackend', '$rootScope', '$state', 'loginService'];
-
-  function run(CONFIG, $httpBackend, $rootScope, $state, loginService) {
     // routes mocks
-    $httpBackend.whenGET(CONFIG.templates.login).passThrough();
-    $httpBackend.whenGET(CONFIG.templates.courses).passThrough();
-    $httpBackend.whenGET(CONFIG.templates.details).passThrough();
-    $httpBackend.whenGET(CONFIG.templates.deleteCoursePopup).passThrough();
-    $httpBackend.whenGET(CONFIG.templates.errorCoursePopup).passThrough();
+    Object.keys(CONFIG.templates).forEach((template) => {
+      $httpBackend.whenGET(template).passThrough();
+    });
 
     // bind listeners on events
-    $rootScope.$on('$stateChangeSuccess', checkAuth);
-
-    function checkAuth(event, toState, toParams, fromState, fromParams) {
-      var state = toState.name,
-          isLoginState = state == 'login',
-          isNotLogged = _.isEmpty(loginService.getLogin());
-
-      if (isNotLogged) {
-        $state.go('login');
-      } else if (isLoginState) {
-        $state.go('courses');
-      }
-    }
+    $rootScope.$on('$stateChangeSuccess', this.checkAuth);
   }
 
-});
+  checkAuth(event, toState, toParams, fromState, fromParams) {
+    let isNotLogged = () => _.isEmpty(this.loginService.getLogin());
+    let isLoginState = () => toState.name === 'login';
+
+    if (isNotLogged()) {
+      this.$state.go('login');
+    } else if (isLoginState()) {
+      this.$state.go('courses');
+    }
+  }
+}
