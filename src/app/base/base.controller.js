@@ -8,7 +8,7 @@ export class BaseController {
     this.$rootScope = $rootScope;
 
     // bind listeners on events
-    $rootScope.$watch('account', this.onAccountChange);
+    $rootScope.$watch('account', () => this.onAccountChange);
     $rootScope.$on('$stateChangeSuccess', this.clearBreadcrumbs);
 
     this.init();

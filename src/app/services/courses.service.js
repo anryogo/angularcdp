@@ -1,7 +1,7 @@
 define([
   'lodash',
   'angular',
-  'config/courses'
+  '../config/courses'
 ], function(_, angular, coursesConfig) {
   'use strict';
 

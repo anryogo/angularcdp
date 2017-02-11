@@ -8,7 +8,7 @@ define([
     .module('App')
     .factory("loginService", loginService);
 
-  loginService.$inject = ['appConfig', '$httpBackend', '$http', 'localStorageService'];
+  loginService.$inject = ['CONFIG', '$httpBackend', '$http', 'localStorageService'];
 
   function loginService(CONFIG, $httpBackend, $http, localStorageService) {
     var service = {

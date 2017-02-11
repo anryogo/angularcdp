@@ -1,29 +1,28 @@
-requirejs.config({
-  baseUrl: 'app',
+import angular from 'angular';
 
-  paths: {
-    'lodash': '../bower_components/lodash/dist/lodash.min',
-    'angular': '../bower_components/angular/angular.min',
-    'angular-resource': '../bower_components/angular-resource/angular-resource.min',
-    'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
-    'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
-    'angular-local-storage': '../bower_components/angular-local-storage/dist/angular-local-storage.min',
-    'angular-ui-router': '../bower_components/angular-ui-router/release/angular-ui-router.min',
+// Load main module
+import './app/app.module';
 
-    // application entry point
-    'app': 'app.module'
-  },
+// Load services
+import './app/services/login.service';
+// import './app/services/courses.service';
 
-  shim: {
-    'angular': {
-      exports: 'angular'
-    },
-    'angular-resource': ['angular'],
-    'angular-mocks': ['angular'],
-    'angular-bootstrap': ['angular'],
-    'angular-local-storage': ['angular'],
-    'angular-ui-router': ['angular']
-  },
+// Load nested modules
+// import './app/base/base.module';
+// import './app/login/login.module';
+// import './app/courses/courses.module';
+// import './app/course-details/course-details.module';
 
-  deps: ['../init']
-});
+// Load components structure
+// import './app/base/base.controller';
+// import './app/login/login.controller';
+// import './app/courses/courses.controller';
+// import './app/courses/delete-modal.controller';
+// import './app/courses/durations.filter';
+// import './app/course-details/course-details.controller';
+// import './app/course-details/error-modal.controller';
+
+import './scss/main.scss';
+
+// Manual Angular initialization
+angular.bootstrap(document, ['App']);
